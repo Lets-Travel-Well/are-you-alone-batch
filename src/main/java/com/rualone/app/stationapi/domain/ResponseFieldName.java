@@ -2,16 +2,20 @@ package com.rualone.app.stationapi.domain;
 
 public enum ResponseFieldName {
 
-	STATION_CODE("code"),
-	ADDRESS("addr"),
-	TEL_NO("tel"),
-	STOCSK("inventory"),
-	LATITUDE("lat"),
-	LONGITUDE("lng"),
-	PRICE("price"),
-	STD_DT("regDt"),
-	NAME("name"),
-	OPENNING_HOURS("openTime");
+	CONTENT_ID("contentid"),
+	CONTENT_TYPE_ID("contenttypeid"),
+	TITLE("title"),
+	ADDR1("addr1"),
+	ADDR2("addr2"),
+	TEL("tel"),
+	FIRST_IMAGE("firstimage"),
+	FIRST_IMAGE2("firstimage2"),
+	MAPY("mapy"),
+	MAPX("mapx"),
+	MLEVEL("mlevel"),
+	AREA_CODE("areacode"),
+	SIGUNGUCODE("sigungucode"),
+	MODIFIED_TIME("modifiedtime");
 
 	private String fieldName;
 

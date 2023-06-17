@@ -1,19 +1,17 @@
-package yssmap.batch.job.chunk;
+package com.rualone.app.batch.job.chunk;
 
-import java.util.List;
-
+import com.rualone.app.stationapi.domain.AttractionDto;
+import com.rualone.app.stationapi.service.AttractionAPIService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import yssmap.stationapi.service.GasStationAPIService;
-import yssmap.main.dto.GasStationDto;
+import java.util.List;
 
-public class GasStationApiReader implements ItemReader<List<GasStationDto>> {
+public class AttractionApiReader implements ItemReader<List<AttractionDto>> {
 
     private static final Logger logger = LoggerFactory.getLogger("file");
-    private final GasStationAPIService storeGasStationAPIService;
+    private final AttractionAPIService attractionAPIService;
     private final int maxPage;
 
     /*
@@ -23,13 +21,13 @@ public class GasStationApiReader implements ItemReader<List<GasStationDto>> {
      */
     private int page = 0;
 
-    public GasStationApiReader(GasStationAPIService storeGasStationAPIService) {
-        this.storeGasStationAPIService = storeGasStationAPIService;
-        maxPage = storeGasStationAPIService.getTotalPage();
+    public AttractionApiReader(AttractionAPIService attractionAPIService) {
+        this.attractionAPIService = attractionAPIService;
+        maxPage = attractionAPIService.getTotalPage();
     }
 
     @Override
-    public List<GasStationDto> read() {
+    public List<AttractionDto> read() {
         page++;
 
         if (page > maxPage) {
@@ -37,7 +35,7 @@ public class GasStationApiReader implements ItemReader<List<GasStationDto>> {
         }
 
         logger.info("fetch page = {}", page);
-        List<GasStationDto> stationDtos = storeGasStationAPIService.fetchStations(page);
+        List<AttractionDto> stationDtos = attractionAPIService.fetchAttraction(page);
         logger.info("fetch data size =  {}", stationDtos.size());
         return stationDtos;
     }
