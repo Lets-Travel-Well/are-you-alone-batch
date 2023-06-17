@@ -8,6 +8,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  batch:
+    jdbc:
+      initialize-schema: always
 #    defer-datasource-initialization: true
 #  sql:
 #    init:
