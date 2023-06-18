@@ -45,7 +45,7 @@ public class AttractionInfo {
         title = newAttractionInfo.title;
         addr1 = newAttractionInfo.addr1;
         addr2 = newAttractionInfo.addr2;
-        zipcode = newAttractionInfo.zipcode;
+//        zipcode = newAttractionInfo.zipcode;
         tel = newAttractionInfo.tel;
         firstImage = newAttractionInfo.firstImage;
         firstImage2 = newAttractionInfo.firstImage2;
