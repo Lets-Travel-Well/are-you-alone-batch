@@ -37,7 +37,7 @@ public class AttractionAPIService {
 
 	private static final Logger logger = LoggerFactory.getLogger("file");
 	public static final int INIT_PAGE = 1;
-	public static final int INIT_PER_PAGE = 1;
+	public static final int INIT_PER_PAGE = 100;
 	public static final String OS = "win";
 	public static final String appName = "rualone";
 
