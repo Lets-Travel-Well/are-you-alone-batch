@@ -39,7 +39,7 @@ public class StoreAttractionJobConfiguration {
     @JobScope
     public Step storeAttractionStep() {
         return stepBuilderFactory.get("storeAttractionStep")
-                .<List<AttractionDto>,List<AttractionDto>>chunk(1)
+                .<List<AttractionDto>,List<AttractionDto>>chunk(5)
                 .reader(attractionApiReader())
                 .writer(attractionApiWriter())
                 .build();

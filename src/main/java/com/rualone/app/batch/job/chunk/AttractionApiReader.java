@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AttractionApiReader implements ItemReader<List<AttractionDto>> {
 
-    private static final Logger logger = LoggerFactory.getLogger("file");
+    private static final Logger logger = LoggerFactory.getLogger("apiReader");
     private final AttractionAPIService attractionAPIService;
     private final int maxPage;
 
@@ -34,9 +34,9 @@ public class AttractionApiReader implements ItemReader<List<AttractionDto>> {
             return null;
         }
 
-        logger.info("fetch page = {}", page);
-        List<AttractionDto> stationDtos = attractionAPIService.fetchAttraction(page);
-        logger.info("fetch data size =  {}", stationDtos.size());
-        return stationDtos;
+        logger.info("fetch page = {} / {}", page, maxPage);
+        List<AttractionDto> attractionDtoList = attractionAPIService.fetchAttraction(page);
+        logger.info("fetch data size =  {}", attractionDtoList.size());
+        return attractionDtoList;
     }
 }

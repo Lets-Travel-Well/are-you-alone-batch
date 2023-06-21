@@ -1,6 +1,7 @@
 package com.rualone.app.main.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 
@@ -16,17 +17,24 @@ public class AttractionInfo {
     @Id
     private Integer contentId;
     private Integer contentTypeId;
+    @Length(min = 1, max = 100)
     private String title;
+    @Length(min = 1, max = 100)
     private String addr1;
+    @Length(min = 1, max = 50)
     private String addr2;
     private String zipcode;
+    @Length(min = 1, max = 50)
     private String tel;
+    @Length(min = 1, max = 200)
     private String firstImage;
+    @Length(min = 1, max = 200)
     private String firstImage2;
     @Column(name = "readcount")
     private Integer readCount;
     private Double latitude;
     private Double longitude;
+    @Length(min = 1, max = 2)
     private String mlevel;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "sido_code")

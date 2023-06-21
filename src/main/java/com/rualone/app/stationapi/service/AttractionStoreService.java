@@ -6,6 +6,7 @@ import com.rualone.app.main.dao.SidoRepository;
 import com.rualone.app.main.entity.AttractionInfo;
 import com.rualone.app.main.entity.Gugun;
 import com.rualone.app.main.entity.Sido;
+import com.rualone.app.main.util.ValidateUtil;
 import com.rualone.app.stationapi.domain.ApiFetchResult;
 import com.rualone.app.stationapi.domain.AttractionDto;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,12 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class AttractionStoreService {
 
-	private static final Logger logger = LoggerFactory.getLogger("file");
+	private static final Logger logger = LoggerFactory.getLogger("storeService");
 
 	private final AttractionInfoRepository attractionInfoRepository;
 	private final SidoRepository sidoRepository;
 	private final GugunRepository gugunRepository;
+	private final ValidateUtil validateUtil;
 
 	private ThreadLocal<ApiFetchResult> apiFetchResultStore = new ThreadLocal<>();
 
@@ -57,9 +59,18 @@ public class AttractionStoreService {
 
 	private void storeAttraction(AttractionDto attractionDto) {
 		Sido sido = sidoRepository.findBySidoCode(attractionDto.getAreacode());
-		Gugun gugun = gugunRepository.findByGugunCodeAndSido(attractionDto.getSigungucode(), sido).get();
-		AttractionInfo requestAttraction = attractionDto.toEntity(sido, gugun);
-
+		Optional<Gugun> optionalGugun = gugunRepository.findByGugunCodeAndSido(attractionDto.getSigungucode(), sido);
+		if (optionalGugun.isEmpty()) {
+			increaseCountOfNotChanged();
+			return;
+		}
+		AttractionInfo requestAttraction = attractionDto.toEntity(sido, optionalGugun.get());
+		logger.info(String.valueOf(requestAttraction.getContentId()));
+//		logger.info(requestAttraction.getTel());
+		if(!validateUtil.validate(requestAttraction)) {
+			increaseCountOfNotChanged();
+			return;
+		}
 		Optional<AttractionInfo> findAttraction = attractionInfoRepository.findByContentId(attractionDto.getContentid());
 
 		if (findAttraction.isEmpty()) {

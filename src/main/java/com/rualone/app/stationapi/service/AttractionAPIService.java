@@ -35,9 +35,9 @@ import static java.lang.Thread.sleep;
 @Transactional(readOnly = true)
 public class AttractionAPIService {
 
-	private static final Logger logger = LoggerFactory.getLogger("file");
+	private static final Logger logger = LoggerFactory.getLogger("apiService");
 	public static final int INIT_PAGE = 1;
-	public static final int INIT_PER_PAGE = 100;
+	public static final int INIT_PER_PAGE = 1000;
 	public static final String OS = "win";
 	public static final String appName = "rualone";
 
@@ -158,8 +158,11 @@ public class AttractionAPIService {
 		LinkedHashMap items = (LinkedHashMap)responseBody.get("items");
 		ArrayList<Map> extractedData = (ArrayList<Map>) items.get("item");
 
-		return extractedData.stream().map(data ->
-			new AttractionDto(
+		return extractedData.stream()
+				.filter(map -> !(map.get(ResponseFieldName.SIGUNGUCODE.getName()).equals("") ||
+						map.get(ResponseFieldName.CONTENT_ID.getName()).equals("") ||
+						map.get(ResponseFieldName.AREA_CODE.getName()).equals("")))
+				.map(data -> new AttractionDto(
 				Integer.parseInt((String) data.get(ResponseFieldName.CONTENT_ID.getName())),
 					Integer.parseInt((String)data.get(ResponseFieldName.CONTENT_TYPE_ID.getName())),
 				(String)data.get(ResponseFieldName.TITLE.getName()),
