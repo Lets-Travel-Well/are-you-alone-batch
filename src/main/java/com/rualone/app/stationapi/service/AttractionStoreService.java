@@ -65,7 +65,7 @@ public class AttractionStoreService {
 			return;
 		}
 		AttractionInfo requestAttraction = attractionDto.toEntity(sido, optionalGugun.get());
-		logger.info(String.valueOf(requestAttraction.getContentId()));
+//		logger.info(String.valueOf(requestAttraction.getContentId()));
 //		logger.info(requestAttraction.getTel());
 		if(!validateUtil.validate(requestAttraction)) {
 			increaseCountOfNotChanged();
